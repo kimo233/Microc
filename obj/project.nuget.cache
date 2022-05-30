@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "Rrqf1U92pKaDTRY8LsQ4yVQw1wLNfQ1yHQ+qcDCybEtA12tfLXIdKw0IjjZ9KivEBZ8SkpqdTrxUL2XTZJRQsg==",
+  "success": true,
+  "projectFilePath": "D:\\lec\\plzoofs-master\\microc\\interpc.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dunaixu\\.nuget\\packages\\fsharp.core\\6.0.4\\fsharp.core.6.0.4.nupkg.sha512",
+    "C:\\Users\\dunaixu\\.nuget\\packages\\fslexyacc\\10.2.0\\fslexyacc.10.2.0.nupkg.sha512",
+    "C:\\Users\\dunaixu\\.nuget\\packages\\fslexyacc.runtime\\10.2.0\\fslexyacc.runtime.10.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}
