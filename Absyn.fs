@@ -20,13 +20,22 @@ type typ =
   | TypS (*string*)
   | TypB (*boolean*)
                                                                    
-and expr =                           // 表达式，右值                                                
+and expr =                           // 表达式，右值  
+  | PreInc of access                 (* ++i or ++a[e]               *)
+  | PreDec of access                 (* --i or --a[e]               *)                                               
   | Access of access                 (* x    or  *p    or  a[e]     *) //访问左值（右值）
   | Assign of access * expr          (* x=e  or  *p=e  or  a[e]=e   *)
   | Addr of access                   (* &x   or  &*p   or  &a[e]    *)
+  | AssignPrim of string * access * expr
   | CstI of int                      (* Constant                    *)
+  | CstF of float
+  | CstD of double
+  | CstS of string
+  | CstC of char
   | Prim1 of string * expr           (* Unary primitive operator    *)
   | Prim2 of string * expr * expr    (* Binary primitive operator   *)
+  | Prim3 of expr * expr * expr
+  | Prim4 of string * access         (* i++ i-- ++i --i   *)
   | Andalso of expr * expr           (* Sequential and              *)
   | Orelse of expr * expr            (* Sequential or               *)
   | Call of string * expr list       (* Function call f(...)        *)
@@ -42,16 +51,25 @@ and stmt =
   | Expr of expr                     (* Expression statement   e;   *)
   | Return of expr option            (* Return from method          *)
   | Block of stmtordec list          (* Block: grouping and scope   *)
+  | Switch of expr * stmt list
+  | Case of expr * stmt
+  | Default of stmt 
+  | For of expr * expr * expr * stmt 
+  | DoUntil of stmt * expr
+  | DoWhile of stmt * expr
+  | ForIn of access * expr * expr * expr * stmt 
   // 语句块内部，可以是变量声明 或语句的列表                                                              
 
 and stmtordec =                                                    
   | Dec of typ * string              (* Local variable declaration  *)
   | Stmt of stmt                     (* A statement                 *)
+  | DecAndAssign of typ * string * expr
 
 // 顶级声明 可以是函数声明或变量声明
 and topdec = 
   | Fundec of typ option * string * (typ * string) list * stmt
   | Vardec of typ * string
+  | VardecAndAssign of typ * string * expr //=声明并赋值
 
 // 程序是顶级声明的列表
 and program = 
