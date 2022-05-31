@@ -25,3 +25,6 @@ D:\lec\plzoofs-master\microc\obj\Debug\net6.0\interpc.fsproj.CopyComplete
 D:\lec\plzoofs-master\microc\obj\Debug\net6.0\interpc.dll
 D:\lec\plzoofs-master\microc\obj\Debug\net6.0\interpc.pdb
 D:\lec\plzoofs-master\microc\obj\Debug\net6.0\interpc.genruntimeconfig.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\interpc.fsproj.AssemblyReference.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\interpc.AssemblyInfoInputs.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\interpc.AssemblyInfo.fs

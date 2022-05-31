@@ -230,11 +230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\lec\\plzoofs-master\\microc\\interpc.fsproj",
+      "projectUniqueName": "D:\\lec\\microc\\Microc\\interpc.fsproj",
       "projectName": "interpc",
-      "projectPath": "D:\\lec\\plzoofs-master\\microc\\interpc.fsproj",
+      "projectPath": "D:\\lec\\microc\\Microc\\interpc.fsproj",
       "packagesPath": "C:\\Users\\dunaixu\\.nuget\\packages\\",
-      "outputPath": "D:\\lec\\plzoofs-master\\microc\\obj\\",
+      "outputPath": "D:\\lec\\microc\\Microc\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dunaixu\\AppData\\Roaming\\NuGet\\NuGet.Config"
