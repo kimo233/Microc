@@ -194,10 +194,6 @@ ExprNotAccess:
   | NOT Expr                            { Prim1("!", $2)      }
   | PRINT Expr                          { Prim1("printi", $2) }
   | PRINTLN                             { Prim1("printc", nl) }
-  | Access PREINC                       { Prim4("I++", $1)     } //=i++
-  | Access PREDEC                       { Prim4("I--", $1)     } //=i--
-  | PREINC Access                       { Prim4("++I", $2)     } //=++i
-  | PREDEC Access                       { Prim4("--I", $2)     } //=--i
   | Expr PLUS  Expr                     { Prim2("+",  $1, $3) }
   | Expr MINUS Expr                     { Prim2("-",  $1, $3) }
   | Expr TIMES Expr                     { Prim2("*",  $1, $3) }
@@ -209,6 +205,10 @@ ExprNotAccess:
   | Expr LT    Expr                     { Prim2("<",  $1, $3) }
   | Expr GE    Expr                     { Prim2(">=", $1, $3) }
   | Expr LE    Expr                     { Prim2("<=", $1, $3) }
+  | PREINC Access                       { PreInc $2           }
+  | PREDEC Access                       { PreDec $2           }
+  | Access PREINC                       { PreInc $1           } 
+  | Access PREDEC                       { PreDec $1           }
   | Expr SEQAND Expr                    { Andalso($1, $3)     }
   | Expr SEQOR  Expr                    { Orelse($1, $3)      }
 ;

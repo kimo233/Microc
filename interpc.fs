@@ -10,17 +10,14 @@ let _ =
 
 let _ =
     let args = Array.filter ((<>) "-g") argv
-
     if args.Length > 1 then
         let source = args.[1]
+        let mutable inputargs = []
+        let arr2 = Array.splitAt 2 args |> snd |> (Array.map  int)
+        for i = 0 to arr2.Length-1 do
+            inputargs <- (INT (arr2.[i]))::inputargs
 
-        let inputargs =
-            Array.splitAt 2 args
-            |> snd
-            |> (Array.map int)
-            |> Array.toList
-
-        printf "interpreting %s ...inputargs:%A\n" source inputargs
+            printf "interpreting %s ...inputargs:%A\n" source inputargs
 
         // ex 是 paser 返回的 抽象语法树
         try
