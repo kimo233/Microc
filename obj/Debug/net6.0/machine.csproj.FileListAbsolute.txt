@@ -1,0 +1,15 @@
+D:\lec\microc\Microc\bin\Debug\net6.0\machine.exe
+D:\lec\microc\Microc\bin\Debug\net6.0\machine.deps.json
+D:\lec\microc\Microc\bin\Debug\net6.0\machine.runtimeconfig.json
+D:\lec\microc\Microc\bin\Debug\net6.0\machine.dll
+D:\lec\microc\Microc\bin\Debug\net6.0\machine.pdb
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.csproj.AssemblyReference.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.GeneratedMSBuildEditorConfig.editorconfig
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.AssemblyInfoInputs.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.AssemblyInfo.cs
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.csproj.CoreCompileInputs.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.dll
+D:\lec\microc\Microc\obj\Debug\net6.0\refint\machine.dll
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.pdb
+D:\lec\microc\Microc\obj\Debug\net6.0\machine.genruntimeconfig.cache
+D:\lec\microc\Microc\obj\Debug\net6.0\ref\machine.dll

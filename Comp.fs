@@ -187,6 +187,60 @@ let rec cStmt stmt (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
         @ cStmt body varEnv funEnv
           @ [ Label labtest ]
             @ cExpr e varEnv funEnv @ [ IFNZRO labbegin ]
+
+     | For(e1, e2, e3, body) ->         
+        let labbegin = newLabel()
+        let labtest  = newLabel()
+        //e1赋值（到栈），直接先跑去e2判断条件，符合就跑回labbegin执行body然后e3(i++)
+        cExpr e1 varEnv funEnv @ [INCSP -1]
+        @ [GOTO labtest; Label labbegin] 
+        @ cStmt body varEnv funEnv
+        @ cExpr e3 varEnv funEnv @ [INCSP -1]
+        @ [Label labtest]
+        @ cExpr e2 varEnv funEnv 
+        @ [IFNZRO labbegin]
+
+    // for &var in range (e1=2,e2=7,e3=3) {body} -> 2,5
+    | ForIn (var, e1, e2, e3, body)  ->
+        let labbegin = newLabel()
+        let labtest  = newLabel()
+        //先给var赋值e1,再记录标签直接送到判断出和e2对比再循环
+        (cExpr (Assign(var, e1)) varEnv funEnv) @ [INCSP -1]
+        @ [GOTO labtest;Label labbegin]
+        @ cStmt body varEnv funEnv
+        //&var +e3
+        @ cExpr e3 varEnv funEnv
+        @ [ADD]
+        @ [Label labtest]
+        //判断代码
+        @ cAccess var varEnv funEnv @[LDI]
+        @ cExpr e2 varEnv funEnv
+        @ [ LT ]
+        @ [IFNZRO labbegin]
+
+    | DoWhile (body, e) ->
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        //先运行body，判断labtest，如果继续就跳到labbegin
+        cStmt body varEnv funEnv
+        @[GOTO labtest]
+        @[Label labbegin] 
+        @ cStmt body varEnv funEnv
+        @[Label labtest] 
+        @ cExpr e varEnv funEnv 
+        @[IFNZRO labbegin]
+
+    | DoUntil (body, e) ->
+        let labbegin = newLabel ()
+        let labtest = newLabel ()
+        cStmt body varEnv funEnv
+        @[GOTO labtest] 
+        @[Label labbegin] 
+        @ cStmt body varEnv funEnv
+        @[Label labtest] 
+        @ cExpr e varEnv funEnv  
+        @[IFZERO labbegin]
+
     | Expr e -> cExpr e varEnv funEnv @ [ INCSP -1 ]
     | Block stmts ->
 
@@ -209,6 +263,11 @@ and cStmtOrDec stmtOrDec (varEnv: VarEnv) (funEnv: FunEnv) : VarEnv * instr list
     match stmtOrDec with
     | Stmt stmt -> (varEnv, cStmt stmt varEnv funEnv)
     | Dec (typ, x) -> allocateWithMsg Locvar (typ, x) varEnv
+    | DecAndAssign (typ, x, e) -> 
+        //x的类型声明，和上面类似，分配空间
+        let (varEnv, code) = allocate Locvar (typ, x) varEnv
+        //返回值，赋值e给变量x，然后缩减栈
+        (varEnv,code@ (cExpr (Assign((AccVar x), e)) varEnv funEnv)@ [ INCSP -1 ])
 
 (* Compiling micro-C expressions:
 
@@ -253,6 +312,35 @@ and cExpr (e: expr) (varEnv: VarEnv) (funEnv: FunEnv) : instr list =
              | ">" -> [ SWAP; LT ]
              | "<=" -> [ SWAP; LT; NOT ]
              | _ -> raise (Failure "unknown primitive 2"))
+        //三目运算：label标签定义程序位置
+    | Prim3(e1, e2, e3) ->
+        let labelse = newLabel()
+        let labend  = newLabel()
+        //e1判断条件，如果为否，跳转到labelse处
+        cExpr e1 varEnv funEnv @ [IFZERO labelse] 
+        @ cExpr e2 varEnv funEnv @ [GOTO labend]
+        @ [Label labelse] @ cExpr e3 varEnv funEnv
+        @ [Label labend]
+
+    //备份，从地址取备份的值，+1，赋值给原地址
+    | PreInc acc     -> 
+        cAccess acc varEnv funEnv @ [DUP] @ [LDI] @ [CSTI 1] @ [ADD] @ [STI]
+    | PreDec acc     -> 
+        cAccess acc varEnv funEnv @ [DUP] @ [LDI] @ [CSTI 1] @ [SUB] @ [STI] 
+
+     //运算符前置
+    | AssignPrim (ope, e1, e2) ->
+        //和上面有些像，e1取值，备份并获取备份值，计算出e2后运算再送回原来的值
+        cAccess e1 varEnv funEnv
+        @[DUP;LDI]
+        @ cExpr e2 varEnv funEnv
+        @ (match ope with
+            | "+=" -> [ ADD;STI ]
+            | "-=" -> [ SUB;STI ]
+            | "*=" -> [ MUL;STI ]
+            | "/=" -> [ DIV;STI ]
+            | _ -> raise (Failure "unknown AssignPrim"))
+
     | Andalso (e1, e2) ->
         let labend = newLabel ()
         let labfalse = newLabel ()

@@ -1,5 +1,12 @@
 void main(int n ) {
-    while(n){
-     print 1;
-    }
+    int i=2;
+    do{
+        i-=1;
+        print(i);
+    }while(i);
+    do{
+        i+=1;
+        print(i);
+    }until(i>2);
+
 }

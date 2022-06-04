@@ -348,18 +348,21 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
 
     | Switch(e, body) ->
         let (v, store0) = eval e locEnv gloEnv store
+    //递归调用case
         let rec carry list = 
             match list with
             | Case(e1, body1) :: next -> 
                 let (v1, store1) = eval e1 locEnv gloEnv store0
+    //判断case中条件是否满足
                 if v1 = v then exec body1 locEnv gloEnv store1
                 else carry next
             | Default(body) :: over ->
                 exec body locEnv gloEnv store0
             | [] -> store0
             | _ -> store0
-
         (carry body)
+    | Case (e, body) -> exec body locEnv gloEnv store
+    | Default(body) -> exec body locEnv gloEnv store
 
     | DoWhile (body, e) ->
         let rec loop store1 =
@@ -402,10 +405,6 @@ let rec exec stmt (locEnv: locEnv) (gloEnv: gloEnv) (store: store) : store =
             loop intValue store4
         else
             store4
-
-    | Case (e, body) -> exec body locEnv gloEnv store
-    
-    | Default(body) -> exec body locEnv gloEnv store
 
     | Expr e ->
         // _ 表示丢弃e的值,返回 变更后的环境store1

@@ -230,9 +230,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\lec\\microc\\Microc\\interpc.fsproj",
-      "projectName": "interpc",
-      "projectPath": "D:\\lec\\microc\\Microc\\interpc.fsproj",
+      "projectUniqueName": "D:\\lec\\microc\\Microc\\microc.fsproj",
+      "projectName": "microc",
+      "projectPath": "D:\\lec\\microc\\Microc\\microc.fsproj",
       "packagesPath": "C:\\Users\\dunaixu\\.nuget\\packages\\",
       "outputPath": "D:\\lec\\microc\\Microc\\obj\\",
       "projectStyle": "PackageReference",

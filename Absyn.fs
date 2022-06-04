@@ -26,6 +26,7 @@ and expr =                           // 表达式，右值
   | Access of access                 (* x    or  *p    or  a[e]     *) //访问左值（右值）
   | Assign of access * expr          (* x=e  or  *p=e  or  a[e]=e   *)
   | Addr of access                   (* &x   or  &*p   or  &a[e]    *)
+  | DecAndAssign of typ * string * expr
   | AssignPrim of string * access * expr
   | CstI of int                      (* Constant                    *)
   | CstF of float

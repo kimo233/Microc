@@ -217,7 +217,7 @@ let trans : uint16[] array =
     (* State 76 *)
      [| 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 76us; 76us; 76us; 76us; 76us; 76us; 76us; 76us; 76us; 76us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 255us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; |];
     |] 
-let actions : uint16[] = [|65535us; 0us; 3us; 7us; 4us; 4us; 5us; 6us; 7us; 2us; 1us; 65535us; 0us; 1us; 1us; 2us; 65535us; 4us; 4us; 2us; 3us; 3us; 4us; 1us; 0us; 65535us; 0us; 1us; 2us; 44us; 6us; 7us; 8us; 9us; 10us; 11us; 12us; 13us; 14us; 31us; 24us; 25us; 44us; 30us; 32us; 33us; 34us; 35us; 36us; 37us; 38us; 39us; 42us; 43us; 44us; 29us; 28us; 27us; 26us; 23us; 22us; 21us; 20us; 40us; 41us; 19us; 16us; 18us; 15us; 17us; 6us; 65535us; 5us; 2us; 65535us; 3us; 3us; |]
+let actions : uint16[] = [|65535us; 0us; 3us; 7us; 4us; 4us; 5us; 6us; 7us; 2us; 1us; 65535us; 0us; 1us; 1us; 2us; 65535us; 4us; 4us; 2us; 3us; 3us; 4us; 1us; 0us; 65535us; 0us; 1us; 2us; 44us; 6us; 7us; 8us; 9us; 10us; 11us; 12us; 13us; 14us; 31us; 24us; 25us; 44us; 30us; 32us; 33us; 34us; 35us; 36us; 37us; 38us; 39us; 42us; 43us; 44us; 29us; 28us; 27us; 26us; 23us; 22us; 21us; 20us; 40us; 41us; 19us; 16us; 18us; 15us; 17us; 6us; 65535us; 5us; 2us; 3us; 3us; 3us; |]
 let _fslex_tables = FSharp.Text.Lexing.UnicodeTables.Create(trans,actions)
 let rec _fslex_dummy () = _fslex_dummy() 
 // Rule Token
@@ -240,12 +240,12 @@ and Token  lexbuf =
           )
   | 3 -> ( 
 # 74 "CLex.fsl"
-                                                  CSTDOUBLE (System.Double.Parse (lexemeAsString lexbuf)) 
+                                                 CSTDOUBLE (System.Double.Parse (lexemeAsString lexbuf)) 
 # 244 "CLex.fs"
           )
   | 4 -> ( 
 # 76 "CLex.fsl"
-                                                  CSTFLOAT (float (lexemeAsString lexbuf)) 
+                                                   CSTFLOAT (float (lexemeAsString lexbuf)) 
 # 249 "CLex.fs"
           )
   | 5 -> ( 
